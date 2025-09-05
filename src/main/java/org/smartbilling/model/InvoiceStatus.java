@@ -1,4 +1,4 @@
-package model;
+package org.smartbilling.model;
 
 public enum InvoiceStatus {
     PENDING,    // Pendiente de pago

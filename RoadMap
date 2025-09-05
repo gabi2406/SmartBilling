@@ -1,0 +1,48 @@
+Phase 1 – Project Foundation
+1. Choose main stack: Java (Spring Boot)
+2. Create project structure and minimal endpoints:
+    GET /health (for monitoring)
+    POST /bills (create invoice)
+    GET /bills (list invoices)
+3. Configure PostgreSQL (local with Docker).
+4. Implement Swagger/OpenAPI documentation.
+5. Create Dockerfile and docker-compose for local development.
+6. Push code to GitHub.
+
+Phase 2 – Logic and Containerization
+1. Add simulated payment logic:
+    POST /payments (pay invoice)
+2. Implement simulated notifications (log or fake email).
+3. Improve models (User, Invoice, Payment).
+4. Build Docker image and publish to a registry (GHCR or DockerHub).
+5. Prepare environment variables in .env.
+
+Phase 3 – Infrastructure and Cloud
+1. Create Terraform files for:
+    VPC + Subnets
+    RDS (Postgres)
+    S3 Bucket
+    IAM Roles
+2. Provision Kubernetes cluster (EKS) or ECS Fargate.
+3. Configure bastion for secure access.
+4. Install tools (kubectl, helm) using Ansible.
+
+Phase 4 – Orchestrated Deployment
+1. Create Kubernetes manifests:
+    Namespace
+    Deployment
+    Service
+    ConfigMap
+    Secrets
+2. Apply deployment to the cluster.
+3. Expose service with Ingress + ALB (TLS with ACM).
+4. Test external access.
+
+Phase 5 – CI/CD and Observability
+1. Configure GitHub Actions:
+2. Build & Test
+3. Build & Push Docker image
+4. Deploy to Kubernetes
+5. Add health checks (/actuator/health or custom endpoint).
+6. Configure structured logging.
+7. Basic monitoring (CloudWatch, Prometheus/Grafana optional).

@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/smartbilling
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: update   # Crea/actualiza automáticamente las tablas según tus entidades Java
+    show-sql: true       # Muestra en consola las queries SQL que se ejecutan
+
+server:
+  port: 8080             # Puerto donde correrá la aplicación Spring Boot

@@ -1,13 +1,9 @@
 package org.smartbilling.service;
 
 import java.util.List;
-
-import org.smartbilling.repository.ProvinceRepository;
-import org.smartbilling.model.Province;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Service;
 
-public class GenericService <T, ID>{
+public abstract class GenericService <T, ID>{
     protected final JpaRepository<T,ID> repository;
 
     public GenericService(JpaRepository <T,ID> repository){
@@ -20,10 +16,19 @@ public class GenericService <T, ID>{
 
     public T findById(ID id){
         return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Entity not found"));
+                .orElseThrow(() -> new RuntimeException("Not found"));
     }
 
     public T save(T entity) {
         return repository.save(entity);
     }
+
+    public T update(T entity) {
+        return repository.save(entity);
+    }
+
+    public void delete(T entity) {
+        repository.delete(entity);
+    }
+
 }

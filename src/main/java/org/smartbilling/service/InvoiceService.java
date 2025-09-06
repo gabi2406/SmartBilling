@@ -1,10 +1,8 @@
 package org.smartbilling.service;
 
-import org.smartbilling.model.Province;
+import org.smartbilling.model.Invoice;
 import org.springframework.stereotype.Service;
-import org.smartbilling.repository.ProvinceRepository;
-
-import java.util.List;
+import org.smartbilling.repository.InvoiceRepository;
 
 @Service
  /* @Service used to mark a class as a service layer component.
@@ -14,9 +12,8 @@ import java.util.List;
  Semantically separates the service layer from controllers and repositories.
  */
 
-public class ProvinceService extends GenericService<Province, Long> {
-    public ProvinceService(ProvinceRepository repository) {
+public class InvoiceService extends GenericService<Invoice, Long> {
+    public InvoiceService(InvoiceRepository repository) {
         super(repository);
     }
-
 }

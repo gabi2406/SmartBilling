@@ -10,24 +10,13 @@ import jakarta.persistence.Entity;
  be persisted, updated, or deleted by JPA/Hibernate.
  */
 
+@Getter
+ /* @Getter is a Lombok annotation that automatically
+ generates getter methods for all fields in the class
+ at compile time, reducing boilerplate code
+ */
 public class Province {
     @Id
     private Long id;
     private String name;
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    protected Province() {}
-
-    public Province(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
 }

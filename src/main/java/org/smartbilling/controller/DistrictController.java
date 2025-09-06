@@ -1,6 +1,6 @@
 package org.smartbilling.controller;
 
-import org.smartbilling.model.Province;
+import org.smartbilling.model.District;
 import org.smartbilling.service.GenericService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,25 +15,25 @@ import java.util.List;
  handle HTTP requests and return responses in JSON format.
  */
 
-@RequestMapping("/provinces")
+@RequestMapping("/districts")
  /* @RequestMapping specifies the base URL path for all
  endpoints in this controller. All methods will start
- with '/provinces'.
+ with '/districts'.
  */
 
-public class ProvinceController extends GenericController <Province, Long>{
-    public ProvinceController(GenericService<Province, Long> service){
+public class DistrictController extends GenericController <District, Long>{
+    public DistrictController(GenericService<District, Long> service){
         super(service);
     }
 
     @GetMapping
-    public List<Province> getAllProvinces() {
+    public List<District> getAllDistricts() {
         return super.getAll();
     }
 
 
     @GetMapping("/{id}")
-    public Province getProvinceById(@PathVariable Long id) {
+    public District getDistrictById(@PathVariable Long id) {
         return super.getById(id);
     }
 }

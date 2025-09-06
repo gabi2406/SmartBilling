@@ -1,7 +1,6 @@
 package org.smartbilling.controller;
 
 import org.smartbilling.service.GenericService;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
@@ -22,5 +21,13 @@ public class GenericController <T,ID> {
 
     public T create(T entity) {
         return service.save(entity);
+    }
+
+    public T update(T entity) {
+        return service.update(entity);
+    }
+
+    public void delete(T entity) {
+        service.delete(entity);
     }
 }

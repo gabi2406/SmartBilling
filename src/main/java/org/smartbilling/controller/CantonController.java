@@ -1,6 +1,8 @@
 package org.smartbilling.controller;
 
-import org.smartbilling.model.Province;
+import org.smartbilling.dto.CantonDTO;
+import org.smartbilling.model.Canton;
+import org.smartbilling.service.CantonService;
 import org.smartbilling.service.GenericService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,25 +17,33 @@ import java.util.List;
  handle HTTP requests and return responses in JSON format.
  */
 
-@RequestMapping("/provinces")
+@RequestMapping("/cantons")
  /* @RequestMapping specifies the base URL path for all
  endpoints in this controller. All methods will start
- with '/provinces'.
+ with '/cantons'.
  */
 
-public class ProvinceController extends GenericController <Province, Long>{
-    public ProvinceController(GenericService<Province, Long> service){
+public class CantonController extends GenericController <Canton, Long>{
+    private final CantonService service;
+    public CantonController(CantonService service){
         super(service);
+        this.service = service;
     }
 
     @GetMapping
-    public List<Province> getAllProvinces() {
+    public List<Canton> getAllCantons() {
         return super.getAll();
     }
 
 
     @GetMapping("/{id}")
-    public Province getProvinceById(@PathVariable Long id) {
+    public Canton getCantonsById(@PathVariable Long id) {
         return super.getById(id);
+    }
+
+
+    @GetMapping("/list/{provinceId}")
+    public List<CantonDTO> getCantonsByProvince(@PathVariable Long provinceId) {
+        return service.listAllByProvince(provinceId);
     }
 }

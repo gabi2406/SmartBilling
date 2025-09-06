@@ -17,6 +17,7 @@ import jakarta.persistence.*;
  Creates a required-args constructor (for final fields).
  It’s a shortcut for @Getter, @Setter, @EqualsAndHashCode, @ToString, and @RequiredArgsConstructor.
  */
+@Table(name = "Customer")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

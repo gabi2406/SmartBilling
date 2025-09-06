@@ -1,4 +1,4 @@
-package org.smartbilling.repository;
+package repository;
 
 import org.smartbilling.model.Province;
 import org.springframework.data.jpa.repository.JpaRepository;

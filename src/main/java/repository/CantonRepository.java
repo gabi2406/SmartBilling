@@ -1,4 +1,4 @@
-package org.smartbilling.repository;
+package repository;
 
 import org.smartbilling.model.Canton;
 import org.springframework.data.jpa.repository.JpaRepository;

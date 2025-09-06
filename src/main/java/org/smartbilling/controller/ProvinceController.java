@@ -1,7 +1,8 @@
 package org.smartbilling.controller;
 
-import service.ProvinceService;
 import org.smartbilling.model.Province;
+import org.smartbilling.service.GenericService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,26 +21,20 @@ import java.util.List;
  endpoints in this controller. All methods will start
  with '/provinces'.
  */
-public class ProvinceController {
-    private final ProvinceService provinceService;
-    public ProvinceController(ProvinceService provinceService){
-        this.provinceService = provinceService;
+
+public class ProvinceController extends GenericController <Province, Long>{
+    public ProvinceController(GenericService<Province, Long> service){
+        super(service);
     }
 
     @GetMapping
-    /* Handles HTTP GET requests to '/provinces'.
-    Returns a list of all provinces.
-    */
-    public List<Province> getAll(){
-        return provinceService.getAllProvince();
+    public List<Province> getAllProvinces() {
+        return super.getAll();
     }
 
+
     @GetMapping("/{id}")
-    /* Handles HTTP GET requests to '/provinces/{id}'.
-    @PathVariable binds the URL 'id' to the method parameter.
-    Returns a single Province by its ID.
-    */
-    public Province getById(@PathVariable Long id){
-        return provinceService.getProvinceById(id);
+    public Province getProvinceById(@PathVariable Long id) {
+        return super.getById(id);
     }
 }

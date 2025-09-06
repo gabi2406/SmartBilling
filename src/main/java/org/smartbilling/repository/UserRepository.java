@@ -9,5 +9,5 @@ sorting, and query method support for JPA entities.
 */
 public interface UserRepository extends JpaRepository<User, Long> {
   Optional<User> findByEmail(String email);
-  Optional<User> findByNeighborhood(Long neighborhood);
+  //Optional<User> findByNeighborhood(Long neighborhood);
 }

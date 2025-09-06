@@ -25,7 +25,7 @@ public class UserService extends GenericService<User, Long> {
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
 
-    public User findByNeighborhood(Long id) {
+    /*public User findByNeighborhood(Long id) {
         return userRepository.findByNeighborhood(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
@@ -40,6 +40,6 @@ public class UserService extends GenericService<User, Long> {
                 user.getPhoneNumber(),
                 user.getNeighborhood() != null ? user.getNeighborhood().getName() : null
         );
-    }
+    }*/
 
 }

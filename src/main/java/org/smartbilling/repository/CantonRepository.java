@@ -15,7 +15,7 @@ sorting, and query method support for JPA entities.
 public interface CantonRepository extends JpaRepository<Canton, Long> {
     Canton findByName(String name);
 
-    @Query("SELECT c FROM canton c WHERE c.province_id = :provinceId")
+    @Query("SELECT c FROM Canton c WHERE c.province.id = :provinceId")
     List<Canton> listByProvince(@Param("provinceId") Long provinceId);
 }
 

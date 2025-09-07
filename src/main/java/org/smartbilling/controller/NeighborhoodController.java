@@ -1,7 +1,8 @@
 package org.smartbilling.controller;
 
 import org.smartbilling.model.Neighborhood;
-import org.smartbilling.service.GenericService;
+import org.smartbilling.dto.NeighborhoodDTO;
+import org.smartbilling.service.NeighborhoodService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,8 +23,10 @@ import java.util.List;
  */
 
 public class NeighborhoodController extends GenericController <Neighborhood, Long>{
-    public NeighborhoodController(GenericService<Neighborhood, Long> service){
+    private final NeighborhoodService service;
+    public NeighborhoodController(NeighborhoodService service){
         super(service);
+        this.service = service;
     }
 
     @GetMapping
@@ -35,5 +38,10 @@ public class NeighborhoodController extends GenericController <Neighborhood, Lon
     @GetMapping("/{id}")
     public Neighborhood getNeighborhoodById(@PathVariable Long id) {
         return super.getById(id);
+    }
+
+    @GetMapping("/list/{districtId}")
+    public List<NeighborhoodDTO> getNeighborhoodByDistrict(@PathVariable Long districtId) {
+        return service.listAllByDistrict(districtId);
     }
 }

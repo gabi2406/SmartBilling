@@ -1,8 +1,7 @@
 package org.smartbilling.controller;
 
-import org.smartbilling.model.Neighborhood;
 import org.smartbilling.model.User;
-import org.smartbilling.service.GenericService;
+import org.smartbilling.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,8 +19,10 @@ import java.util.List;
  */
 
 public class UserController extends GenericController <User, Long>{
-    public UserController(GenericService<User, Long> service){
+    private final UserService service;
+        public UserController(UserService service){
         super(service);
+        this.service = service;
     }
 
     @GetMapping

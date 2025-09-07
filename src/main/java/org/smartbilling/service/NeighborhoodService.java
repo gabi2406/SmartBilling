@@ -1,5 +1,7 @@
 package org.smartbilling.service;
 
+import org.smartbilling.dto.CantonDTO;
+import org.smartbilling.dto.DistrictDTO;
 import org.smartbilling.dto.NeighborhoodDTO;
 import org.smartbilling.model.Neighborhood;
 import org.springframework.stereotype.Service;
@@ -17,16 +19,28 @@ import java.util.List;
 
 public class NeighborhoodService extends GenericService<Neighborhood, Long> {
 
-    private final NeighborhoodRepository neighborhoodRepository;
+    private final NeighborhoodRepository repository;
     public NeighborhoodService(NeighborhoodRepository repository) {
         super(repository);
-        this.neighborhoodRepository = repository;
+        this.repository = repository;
     }
 
     public List<NeighborhoodDTO> getAllNeighborhoods() {
-        return neighborhoodRepository.findAll()
+        return repository.findAll()
                 .stream()
                 .map(n -> new NeighborhoodDTO(n.getId(), n.getName(), n.getDistrict().getId()))
+                .toList();
+    }
+
+
+    public List<NeighborhoodDTO> listAllByDistrict(Long districtId){
+        return repository.listByDistrict(districtId)
+                .stream()
+                .map(n -> new NeighborhoodDTO(
+                        n.getId(),
+                        n.getName(),
+                        n.getDistrict().getId()
+                ))
                 .toList();
     }
 }

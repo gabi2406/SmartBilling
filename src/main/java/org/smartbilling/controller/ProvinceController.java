@@ -1,7 +1,7 @@
 package org.smartbilling.controller;
 
 import org.smartbilling.model.Province;
-import org.smartbilling.service.GenericService;
+import org.smartbilling.service.ProvinceService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,8 +22,10 @@ import java.util.List;
  */
 
 public class ProvinceController extends GenericController <Province, Long>{
-    public ProvinceController(GenericService<Province, Long> service){
+    private final ProvinceService service;
+    public ProvinceController(ProvinceService service){
         super(service);
+        this.service = service;
     }
 
     @GetMapping

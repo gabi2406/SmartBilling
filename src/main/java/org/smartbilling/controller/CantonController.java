@@ -3,7 +3,6 @@ package org.smartbilling.controller;
 import org.smartbilling.dto.CantonDTO;
 import org.smartbilling.model.Canton;
 import org.smartbilling.service.CantonService;
-import org.smartbilling.service.GenericService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

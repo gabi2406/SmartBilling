@@ -3,7 +3,6 @@ package org.smartbilling.controller;
 import org.smartbilling.dto.DistrictDTO;
 import org.smartbilling.model.District;
 import org.smartbilling.service.DistrictService;
-import org.smartbilling.service.GenericService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

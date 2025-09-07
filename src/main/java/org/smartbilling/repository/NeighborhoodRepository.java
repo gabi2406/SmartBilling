@@ -8,4 +8,5 @@ sorting, and query method support for JPA entities.
 */
 public interface NeighborhoodRepository extends JpaRepository<Neighborhood, Long> {
     Neighborhood findByName(String name);
+
 }

@@ -1,0 +1,43 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>User Form</title>
+    <style>
+        body { font-family: system-ui, sans-serif; max-width: 640px; margin: 2rem auto; }
+        .field { margin-bottom: 1rem; }
+        .error { color: #b00020; font-size: 0.9rem; }
+        label { display:block; margin-bottom: 0.25rem; }
+        input { width: 100%; padding: .5rem; }
+        button { padding: .6rem 1rem; }
+    </style>
+</head>
+<body>
+<h1>Register</h1>
+
+<form th:action="@{/userform/register}" method="post" th:object="${form}">
+    <!-- CSRF if Spring Security is on -->
+    <input th:if="${_csrf}" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+    <div class="field">
+        <label for="name">Name</label>
+        <input id="name" th:field="*{name}" />
+        <div class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+    </div>
+
+    <div class="field">
+        <label for="email">Email</label>
+        <input id="email" th:field="*{email}" />
+        <div class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+    </div>
+
+    <div class="field">
+        <label for="age">Age</label>
+        <input id="age" type="number" th:field="*{age}" />
+        <div class="error" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div>
+    </div>
+
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>

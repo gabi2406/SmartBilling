@@ -29,6 +29,16 @@ pipeline {
       }
     }
 
+    stage('Docker sanity') {
+      steps {
+        sh '''
+          unset DOCKER_TLS_VERIFY DOCKER_CERT_PATH DOCKER_HOST
+          docker context use default || true
+          docker version
+        '''
+      }
+    }
+
     stage('Docker Build') {
       steps {
         sh """

@@ -32,8 +32,6 @@ pipeline {
     stage('Docker sanity') {
       steps {
         sh '''
-          unset DOCKER_TLS_VERIFY DOCKER_CERT_PATH DOCKER_HOST
-          docker context use default || true
           docker version
         '''
       }
@@ -42,7 +40,6 @@ pipeline {
     stage('Docker Build') {
       steps {
         sh """
-          docker version
           docker build -t ${IMAGE_NAME}:${IMAGE_TAG} -t ${IMAGE_NAME}:latest .
         """
       }

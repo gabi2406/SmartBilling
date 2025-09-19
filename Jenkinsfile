@@ -66,7 +66,7 @@ pipeline {
         script {
 
         sh """
-          docker build -t ${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG} -t ${IMAGE_NAME}:latest .
+          docker build -t ${REGISTRY}/${IMAGE_NAME}:${env.IMAGE_TAG} -t ${REGISTRY}/${IMAGE_NAME}:latest .
         """
       }
      }
@@ -74,15 +74,15 @@ pipeline {
     stage('Push to Local Registry') {
       steps {
         sh """
-          docker push ${IMAGE_NAME}:${IMAGE_TAG}
-          docker push ${IMAGE_NAME}:latest
+          docker push ${REGISTRY}/${IMAGE_NAME}:${env.IMAGE_TAG}
+          docker push ${REGISTRY}/${IMAGE_NAME}:latest
         """
       }
     }
   }
 
   post {
-    success { echo "Pushed ${IMAGE_NAME}:${IMAGE_TAG} to local registry." }
+    success { echo "Pushed ${IMAGE_NAME}:${env.IMAGE_TAG} to local registry." }
     always { archiveArtifacts artifacts: 'target/*.jar', fingerprint: true }
   }
 }

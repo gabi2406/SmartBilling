@@ -26,6 +26,7 @@ pipeline {
           def raw = env.BRANCH_NAME ?: env.GIT_BRANCH ?: sh(
             returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD'
           ).trim()
+          echo "raw before replace => ${env.IMAGE_TAG}"
           raw = raw.replaceFirst(/^origin\//, '').replaceFirst(/^refs\/heads\//, '')
           def safe = raw.replaceAll(/[^A-Za-z0-9_.-]/, '-')
           env.IMAGE_TAG = "${safe}-${env.BUILD_NUMBER}"

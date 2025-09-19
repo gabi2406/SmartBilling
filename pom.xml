@@ -11,6 +11,7 @@
 	<groupId>org</groupId>
 	<artifactId>smartbilling</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
 	<name>smartbilling</name>
 	<description>Cloud-native app for payments and bill notifications. Built with Java (Spring Boot), Docker, Terraform, Ansible, and Kubernetes. Includes user management, invoice tracking, payment simulation, and notification features.</description>
 	<url/>
@@ -80,6 +81,18 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals><goal>repackage</goal></goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!-- set if auto-detection fails -->
+                    <!-- <mainClass>com.yourco.smartbilling.SmartBillingApplication</mainClass> -->
+                    <layers>
+                        <enabled>true</enabled>
+                    </layers>
+                </configuration>
 			</plugin>
 		</plugins>
 	</build>

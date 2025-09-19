@@ -36,7 +36,7 @@ pipeline {
 
             // 4) Replace any other invalid tag chars with '-'
             def safe = raw.replaceAll('[^A-Za-z0-9_.-]', '-')
-          IMAGE_TAG = "${safe}-${env.BUILD_NUMBER}-1111111"
+          IMAGE_TAG = "${safe}"
           echo "${raw}gggggggggggggggppppppp=${safe}"
           echo "Using IMAGE_TAGppppppp=${env.IMAGE_TAG}"
         }
@@ -64,8 +64,6 @@ pipeline {
       steps {
 
         script {
-
-
 
         sh """
           docker build -t ${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG} -t ${IMAGE_NAME}:latest .

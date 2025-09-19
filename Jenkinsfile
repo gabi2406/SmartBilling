@@ -67,8 +67,12 @@ pipeline {
 
         sh """
           docker build -t ${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG} -t ${REGISTRY}/${IMAGE_NAME}:latest .
-          echo "$(ls -lht . | grep smart)"
         """
+      }
+      script{
+        sh """
+            echo "$(ls -lht .)"
+           """
       }
      }
     }

@@ -23,7 +23,7 @@ pipeline {
    stage('Sanitize Image Tag') {
       steps {
         script {
-          def raw = "${env.IMAGE_TAG}"
+          def raw = env.IMAGE_TAG
            // 2) Strip common prefixes ONLY if they’re at the start
             //    (use normal strings, not /slash/ regex literals)
             raw = raw.replaceFirst('refs/heads/', '')
@@ -35,7 +35,7 @@ pipeline {
             raw = raw.replace('/', '-')  // replaces every '/' char
 
             // 4) Replace any other invalid tag chars with '-'
-            def safe = raw.replaceAll('/[^A-Za-z0-9_.-]/', '-')
+            def safe = raw.replaceAll('[^A-Za-z0-9_.-]', '-')
           IMAGE_TAG = "${safe}-${env.BUILD_NUMBER}-1111111"
           echo "${raw}gggggggggggggggppppppp=${safe}"
           echo "Using IMAGE_TAGppppppp=${env.IMAGE_TAG}"
@@ -65,25 +65,10 @@ pipeline {
 
         script {
 
-        // 1) Get the branch name from Jenkins env or from git
-              def raw = ${IMAGE_TAG}
 
-              // 2) Strip common prefixes ONLY if they’re at the start
-              //    (use normal strings, not /slash/ regex literals)
-              raw = raw.replaceFirst('^refs/heads/', '')
-                       .replaceFirst('^refs/remotes/origin/', '')
-                       .replaceFirst('^origin/', '')
-                       .replaceFirst('^remotes/', '')
-
-              // 3) Replace ALL slashes with hyphens (literal replace, not regex)
-              raw = raw.replace('/', '-')  // replaces every '/' char
-
-              // 4) Replace any other invalid tag chars with '-'
-              def safeTag = raw.replaceAll('[^A-Za-z0-9_.-]', '-')
-                echo "safe tag: ${safeTag}"
 
         sh """
-          docker build -t ${IMAGE_NAME}:${safeTag} -t ${IMAGE_NAME}:latest .
+          docker build -t ${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG} -t ${IMAGE_NAME}:latest .
         """
       }
      }

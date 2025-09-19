@@ -11,7 +11,7 @@ pipeline {
     APP_NAME   = 'smartbilling'
     IMAGE_TAG  = "${env.BRANCH_NAME ?: env.GIT_BRANCH ?: 'local'}-${env.BUILD_NUMBER}"
     REGISTRY   = 'registry:5000'                  // inside the compose network
-    IMAGE_NAME = "${REGISTRY}/${APP_NAME}"
+    IMAGE_NAME = "${APP_NAME}"
     MAVEN_OPTS = '-Dmaven.test.failure.ignore=false'
   }
 

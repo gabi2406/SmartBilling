@@ -69,11 +69,7 @@ pipeline {
           docker build -t ${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG} -t ${REGISTRY}/${IMAGE_NAME}:latest .
         """
       }
-      script{
-        sh """
-            echo "$(ls -lht .)"
-           """
-      }
+        sh 'echo "$(ls -lht .)"'
      }
     }
     stage('Push to Local Registry') {

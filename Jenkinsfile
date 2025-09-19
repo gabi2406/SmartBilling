@@ -62,12 +62,32 @@ pipeline {
 
     stage('Docker Build') {
       steps {
-        script {
-            docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
-        }
-      }
-    }
 
+        script {
+
+        // 1) Get the branch name from Jenkins env or from git
+              def raw = ${IMAGE_TAG}
+
+              // 2) Strip common prefixes ONLY if they’re at the start
+              //    (use normal strings, not /slash/ regex literals)
+              raw = raw.replaceFirst('^refs/heads/', '')
+                       .replaceFirst('^refs/remotes/origin/', '')
+                       .replaceFirst('^origin/', '')
+                       .replaceFirst('^remotes/', '')
+
+              // 3) Replace ALL slashes with hyphens (literal replace, not regex)
+              raw = raw.replace('/', '-')  // replaces every '/' char
+
+              // 4) Replace any other invalid tag chars with '-'
+              def safeTag = raw.replaceAll('[^A-Za-z0-9_.-]', '-')
+
+
+        sh """
+          docker build -t ${IMAGE_NAME}:${safeTag} -t ${IMAGE_NAME}:latest .
+        """
+      }
+     }
+    }
     stage('Push to Local Registry') {
       steps {
         sh """

@@ -80,7 +80,7 @@ pipeline {
 
               // 4) Replace any other invalid tag chars with '-'
               def safeTag = raw.replaceAll('[^A-Za-z0-9_.-]', '-')
-
+                echo "safe tag: ${safeTag}"
 
         sh """
           docker build -t ${IMAGE_NAME}:${safeTag} -t ${IMAGE_NAME}:latest .

@@ -69,14 +69,13 @@ pipeline {
           docker build -t ${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG} -t ${REGISTRY}/${IMAGE_NAME}:latest .
         """
       }
-        sh 'echo "$(ls -lht .)"'
      }
     }
     stage('Push to Local Registry') {
       steps {
         sh """
 
-          docker push ${REGISTRY}/${IMAGE_NAME}:${env.IMAGE_TAG}
+          docker push ${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}
           docker push ${REGISTRY}/${IMAGE_NAME}:latest
         """
       }

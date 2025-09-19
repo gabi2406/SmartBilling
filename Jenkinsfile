@@ -9,12 +9,7 @@ pipeline {
 
   environment {
     APP_NAME   = 'smartbilling'
-    IMAGE_TAG = "${
-        (env.BRANCH_NAME ?: env.GIT_BRANCH ?: 'local')
-          .replaceFirst('^origin/', '')
-          .replaceFirst('^refs/heads/', '')
-          .replaceAll('[^A-Za-z0-9_.-]', '-')
-      }-${env.BUILD_NUMBER}"
+    IMAGE_TAG  = "${env.BRANCH_NAME ?: env.GIT_BRANCH ?: 'local'}-${env.BUILD_NUMBER}"
     REGISTRY   = 'registry:5000'                  // inside the compose network
     IMAGE_NAME = "${APP_NAME}"
     MAVEN_OPTS = '-Dmaven.test.failure.ignore=false'
@@ -24,6 +19,20 @@ pipeline {
     stage('Checkout') {
       steps { checkout scm }
     }
+
+   stage('Sanitize Image Tag') {
+      steps {
+        script {
+          def raw = env.BRANCH_NAME ?: env.GIT_BRANCH ?: sh(
+            returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD'
+          ).trim()
+          raw = raw.replaceFirst(/^origin\//, '').replaceFirst(/^refs\/heads\//, '')
+          def safe = raw.replaceAll(/[^A-Za-z0-9_.-]/, '-')
+          env.IMAGE_TAG = "${safe}-${env.BUILD_NUMBER}"
+          echo "Using IMAGE_TAG=${env.IMAGE_TAG}"
+        }
+      }
+   }
 
     stage('Build & Test') {
       steps {

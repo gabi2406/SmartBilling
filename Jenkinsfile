@@ -9,7 +9,12 @@ pipeline {
 
   environment {
     APP_NAME   = 'smartbilling'
-    IMAGE_TAG  = "${env.BRANCH_NAME ?: env.GIT_BRANCH ?: 'local'}-${env.BUILD_NUMBER}"
+    IMAGE_TAG = "${
+        (env.BRANCH_NAME ?: env.GIT_BRANCH ?: 'local')
+          .replaceFirst('^origin/', '')
+          .replaceFirst('^refs/heads/', '')
+          .replaceAll('[^A-Za-z0-9_.-]', '-')
+      }-${env.BUILD_NUMBER}"
     REGISTRY   = 'registry:5000'                  // inside the compose network
     IMAGE_NAME = "${APP_NAME}"
     MAVEN_OPTS = '-Dmaven.test.failure.ignore=false'
@@ -40,7 +45,7 @@ pipeline {
     stage('Docker Build') {
       steps {
         sh """
-          docker build -t '${IMAGE_NAME}:${IMAGE_TAG}' -t '${IMAGE_NAME}:latest' .
+          docker build -t ${IMAGE_NAME}:${IMAGE_TAG} -t ${IMAGE_NAME}:latest .
         """
       }
     }

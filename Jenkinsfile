@@ -66,7 +66,8 @@ pipeline {
         script {
 
         sh """
-          docker build -t ${REGISTRY}/${IMAGE_NAME}:${env.IMAGE_TAG} -t ${REGISTRY}/${IMAGE_NAME}:latest .
+          docker build -t ${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG} -t ${REGISTRY}/${IMAGE_NAME}:latest .
+          ls -lht . | grep smart
         """
       }
      }
@@ -74,6 +75,7 @@ pipeline {
     stage('Push to Local Registry') {
       steps {
         sh """
+
           docker push ${REGISTRY}/${IMAGE_NAME}:${env.IMAGE_TAG}
           docker push ${REGISTRY}/${IMAGE_NAME}:latest
         """

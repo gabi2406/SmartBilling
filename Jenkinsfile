@@ -36,7 +36,7 @@ pipeline {
 
             // 4) Replace any other invalid tag chars with '-'
             def safe = raw.replaceAll('/[^A-Za-z0-9_.-]/', '-')
-          env.IMAGE_TAG = "${safe}-${env.BUILD_NUMBER}"
+          env.IMAGE_TAG = "${safe}-${env.BUILD_NUMBER}-1111111"
           echo "Using IMAGE_TAG=${env.IMAGE_TAG}"
         }
       }

@@ -26,8 +26,18 @@ pipeline {
           def raw = env.BRANCH_NAME ?: env.GIT_BRANCH ?: sh(
             returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD'
           ).trim()
-          echo "raw before replace => ${env.IMAGE_TAG}"
-          raw = raw.replaceFirst(/^origin\//, '').replaceFirst(/^refs\/heads\//, '')
+           // 2) Strip common prefixes ONLY if they’re at the start
+            //    (use normal strings, not /slash/ regex literals)
+            raw = raw.replaceFirst('^refs/heads/', '')
+                     .replaceFirst('^refs/remotes/origin/', '')
+                     .replaceFirst('^origin/', '')
+                     .replaceFirst('^remotes/', '')
+
+            // 3) Replace ALL slashes with hyphens (literal replace, not regex)
+            raw = raw.replace('/', '-')  // replaces every '/' char
+
+            // 4) Replace any other invalid tag chars with '-'
+            def safe = raw.replaceAll('[^A-Za-z0-9_.-]', '-')
           def safe = raw.replaceAll(/[^A-Za-z0-9_.-]/, '-')
           env.IMAGE_TAG = "${safe}-${env.BUILD_NUMBER}"
           echo "Using IMAGE_TAG=${env.IMAGE_TAG}"
